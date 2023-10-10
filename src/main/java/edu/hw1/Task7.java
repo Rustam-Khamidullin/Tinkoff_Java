@@ -1,7 +1,10 @@
 package edu.hw1;
 
 public class Task7 {
+    private Task7() {
+    }
 
+    @SuppressWarnings("ParameterAssignment")
     private static int maxBinDigit(long x) {
         int cntDigit = 0;
         do {
@@ -12,6 +15,7 @@ public class Task7 {
         return cntDigit;
     }
 
+    @SuppressWarnings("ParameterAssignment")
     public static long rotateRight(long x, int n) {
         int lenX = maxBinDigit(x);
 
@@ -31,6 +35,7 @@ public class Task7 {
         return x;
     }
 
+    @SuppressWarnings("ParameterAssignment")
     public static long rotateLeft(long x, int n) {
         int lenX = maxBinDigit(x);
 

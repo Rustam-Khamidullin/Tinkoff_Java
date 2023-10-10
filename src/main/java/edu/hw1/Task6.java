@@ -3,6 +3,10 @@ package edu.hw1;
 import java.util.Arrays;
 
 public class Task6 {
+    private Task6() {
+    }
+
+    @SuppressWarnings({"MagicNumber", "ParameterAssignment"})
     public static int countK(int x) {
         if ((x < 999) || (x > 9999) || (x % 1111 == 0)) {
             return -100;
@@ -21,8 +25,10 @@ public class Task6 {
 
         Arrays.sort(digits);
 
-        int x1 = 0, pow1 = 1000;
-        int x2 = 0, pow2 = 1;
+        int x1 = 0;
+        int x2 = 0;
+        int pow1 = 1000;
+        int pow2 = 1;
 
         for (int i = 0; i < 4; i++) {
             x1 += (digits[i] - '0') * pow1;

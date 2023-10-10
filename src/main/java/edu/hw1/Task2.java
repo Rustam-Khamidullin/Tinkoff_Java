@@ -1,6 +1,11 @@
 package edu.hw1;
 
 public class Task2 {
+
+    private Task2() {
+    }
+
+    @SuppressWarnings({"MagicNumber", "ParameterAssignment"})
     public static int countDigits(long x) {
         x = Math.abs(x);
         int res = 1;

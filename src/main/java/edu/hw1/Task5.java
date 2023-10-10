@@ -1,6 +1,10 @@
 package edu.hw1;
 
 public class Task5 {
+    private Task5() {
+    }
+
+    @SuppressWarnings({"MagicNumber", "ParameterAssignment"})
     private static boolean isPalindrome(long x) {
         if (x < 0) {
             return false;
@@ -15,6 +19,7 @@ public class Task5 {
         return reversed == copy;
     }
 
+    @SuppressWarnings({"MagicNumber", "ParameterAssignment", "ReturnCount"})
     public static boolean isPalindromeDescendant(long x) {
         if (x < 0) {
             return false;
