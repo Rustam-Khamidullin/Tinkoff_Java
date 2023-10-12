@@ -4,26 +4,24 @@ public class Task7 {
     private Task7() {
     }
 
-    @SuppressWarnings("ParameterAssignment")
-    private static int maxBinDigit(long x) {
+    private static int maxBinDigit(long value) {
+        long x = value;
         int cntDigit = 0;
         do {
             x >>= 1;
             cntDigit++;
-        } while (x > 0);
+        } while (x != 0);
 
         return cntDigit;
     }
 
-    @SuppressWarnings("ParameterAssignment")
-    public static long rotateRight(long x, int n) {
-        int lenX = maxBinDigit(x);
-
-        n %= lenX;
+    public static long rotateRight(long value, int shift) {
+        int lenX = maxBinDigit(value);
+        long x = value;
 
         long onlyLastDigit = 1L << (lenX - 1);
 
-        for (; n > 0; n--) {
+        for (int n = shift % lenX; n > 0; n--) {
             if ((x & 1) == 1) {
                 x >>= 1;
                 x |= onlyLastDigit;
@@ -35,15 +33,13 @@ public class Task7 {
         return x;
     }
 
-    @SuppressWarnings("ParameterAssignment")
-    public static long rotateLeft(long x, int n) {
-        int lenX = maxBinDigit(x);
-
-        n %= lenX;
+    public static long rotateLeft(long value, int shift) {
+        int lenX = maxBinDigit(value);
+        long x = value;
 
         long onlyLastDigit = 1L << (lenX - 1);
 
-        for (; n > 0; n--) {
+        for (int n = shift % lenX; n > 0; n--) {
             if ((x & onlyLastDigit) == onlyLastDigit) {
                 x &= ~onlyLastDigit;
                 x <<= 1;

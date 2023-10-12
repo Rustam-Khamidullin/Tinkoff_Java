@@ -5,14 +5,16 @@ public class Task2 {
     private Task2() {
     }
 
-    @SuppressWarnings({"MagicNumber", "ParameterAssignment"})
-    public static int countDigits(long x) {
-        x = Math.abs(x);
-        int res = 1;
-        while (x >= 10) {
-            x /= 10;
+    public static int countDigits(long value) {
+        final long radix = 10L;
+        long x = value;
+        int res = 0;
+
+        do {
+            x /= radix;
             res++;
-        }
+        } while (x != 0);
+
         return res;
     }
 }

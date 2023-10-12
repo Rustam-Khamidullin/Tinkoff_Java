@@ -1,8 +1,8 @@
 package edu.hw1;
 
-import static org.assertj.core.api.Assertions.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class Task3Test {
 
@@ -39,7 +39,7 @@ public class Task3Test {
     }
 
     @Test
-    @DisplayName("Массив a1 вложен в себя")
+    @DisplayName("Массив a1 не вложен в себя")
     void testSameArray() {
         int[] a1 = {1, 2, 3, 4};
         assertThat(Task3.isNestable(a1, a1)).isFalse();

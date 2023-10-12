@@ -3,16 +3,18 @@ package edu.hw1;
 import java.util.Arrays;
 
 public class Task6 {
+    public static final long KAPRECAR_CONSTANT = 6174;
+
     private Task6() {
     }
 
-    @SuppressWarnings({"MagicNumber", "ParameterAssignment"})
+    @SuppressWarnings("MagicNumber")
     public static int countK(int x) {
         if ((x < 999) || (x > 9999) || (x % 1111 == 0)) {
-            return -100;
+            return -1;
         }
 
-        if (x == 6174) {
+        if (x == KAPRECAR_CONSTANT) {
             return 0;
         }
 

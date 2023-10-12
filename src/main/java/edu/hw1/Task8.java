@@ -1,28 +1,28 @@
 package edu.hw1;
 
 public class Task8 {
+    private static final int BOARD_SIZE = 8;
+    private static final int[][] MOVES = new int[][]
+        {{1, 2}, {1, -2}, {2, 1}, {2, -1}};
+
     private Task8() {
     }
 
-    @SuppressWarnings({"ParametrAssignment", "MagicNumber"})
     public static boolean knightBoardCapture(int[][] board) {
-        if (board.length != 8) {
+        if ((board == null) || (board.length != BOARD_SIZE)) {
             return false;
         }
         for (int[] row : board) {
-            if (row.length != 8) {
+            if ((row == null) || (row.length != BOARD_SIZE)) {
                 return false;
             }
         }
 
-        int[][] moves = new int[][]
-            {{1, 2}, {1, -2}, {2, 1}, {2, -1}};
-
-        for (int row = 0; row < 8; row++) {
-            for (int col = 0; col < 8; col++) {
+        for (int row = 0; row < BOARD_SIZE; row++) {
+            for (int col = 0; col < BOARD_SIZE; col++) {
                 if (board[row][col] == 1) {
-                    for (int[] move : moves) {
-                        if ((row + move[0] < 8) && (col + move[1] >= 0) && (col + move[1] < 8)
+                    for (int[] move : MOVES) {
+                        if ((row + move[0] < BOARD_SIZE) && (col + move[1] >= 0) && (col + move[1] < BOARD_SIZE)
                             && (board[row + move[0]][col + move[1]] == 1)) {
                             return false;
                         }

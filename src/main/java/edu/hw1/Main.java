@@ -9,15 +9,15 @@ public final class Main {
     public static void main(String[] args) {
         Task0.printHelloWorld();
 
-        System.out.println(Task1.minutesToSeconds("999:59"));
+        System.out.println(Task1.minutesToSeconds(Long.MIN_VALUE / 60 + ":00"));
 
-        System.out.println(Task2.countDigits(12345));
+        System.out.println(Task2.countDigits(Long.MIN_VALUE));
 
         System.out.println(Task3.isNestable(new int[] {1, 2, 3, 4}, new int[] {2, 3}));
 
         System.out.println(Task4.fixString("badce"));
 
-        System.out.println(Task5.isPalindromeDescendant(11211230));
+        System.out.println(Task5.isPalindromeDescendant(1224));
 
         System.out.println(Task6.countK(1234));
 

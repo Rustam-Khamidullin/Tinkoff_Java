@@ -1,11 +1,13 @@
 package edu.hw1;
 
 public class Task5 {
+    private static final long RADIX = 10L;
+
     private Task5() {
     }
 
-    @SuppressWarnings({"MagicNumber", "ParameterAssignment"})
-    private static boolean isPalindrome(long x) {
+    private static boolean isPalindrome(long value) {
+        long x = value;
         if (x < 0) {
             return false;
         }
@@ -13,14 +15,17 @@ public class Task5 {
         long copy = x;
 
         while (x > 0) {
-            reversed = 10 * reversed + x % 10;
-            x /= 10;
+            reversed = RADIX * reversed + x % RADIX;
+            x /= RADIX;
         }
         return reversed == copy;
     }
 
-    @SuppressWarnings({"MagicNumber", "ParameterAssignment", "ReturnCount"})
-    public static boolean isPalindromeDescendant(long x) {
+    @SuppressWarnings("ReturnCount")
+    public static boolean isPalindromeDescendant(long value) {
+        final long twoLastDigits = 100L;
+        long x = value;
+
         if (x < 0) {
             return false;
         }
@@ -29,10 +34,10 @@ public class Task5 {
             return true;
         }
 
-        while (true) {
-            int cd = Task2.countDigits(x);
+        int digitCount = Task2.countDigits(x);
 
-            if (cd == 1) {
+        while (true) {
+            if (digitCount == 1) {
                 return false;
             }
 
@@ -40,26 +45,31 @@ public class Task5 {
                 return true;
             }
 
-            if (cd % 2 == 1) {
+            if ((digitCount & 1) == 1) {
                 return false;
             }
 
+            digitCount >>= 1;
+
+            int newDigitCount = digitCount;
             long newX = 0;
             long power = 1;
 
-            for (int i = 0; i < cd / 2; i++) {
-                long r = x % 100;
-                long add = (r % 10) + (r / 10);
+            for (int i = 0; i < digitCount; i++) {
+                long r = x % twoLastDigits;
+                long add = (r % RADIX) + (r / RADIX);
                 newX += add * power;
 
-                x /= 100;
-                power *= 10;
-                if (add > 9) {
-                    power *= 10;
+                x /= twoLastDigits;
+                power *= RADIX;
+                if (add >= RADIX) {
+                    power *= RADIX;
+                    newDigitCount++;
                 }
             }
 
             x = newX;
+            digitCount = newDigitCount;
         }
     }
 }
