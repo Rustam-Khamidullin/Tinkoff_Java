@@ -2,6 +2,7 @@ package edu.hw1;
 
 public class Task5 {
     private static final long RADIX = 10L;
+    private static final long TWO_LAST_DIGITS = 100L;
 
     private Task5() {
     }
@@ -23,7 +24,6 @@ public class Task5 {
 
     @SuppressWarnings("ReturnCount")
     public static boolean isPalindromeDescendant(long value) {
-        final long twoLastDigits = 100L;
         long x = value;
 
         if (x < 0) {
@@ -56,11 +56,11 @@ public class Task5 {
             long power = 1;
 
             for (int i = 0; i < digitCount; i++) {
-                long r = x % twoLastDigits;
+                long r = x % TWO_LAST_DIGITS;
                 long add = (r % RADIX) + (r / RADIX);
                 newX += add * power;
 
-                x /= twoLastDigits;
+                x /= TWO_LAST_DIGITS;
                 power *= RADIX;
                 if (add >= RADIX) {
                     power *= RADIX;

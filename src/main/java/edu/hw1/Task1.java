@@ -1,11 +1,13 @@
 package edu.hw1;
 
 public class Task1 {
+    private static final long SECONDS_IN_MINUTE = 60L;
+
     private Task1() {
     }
 
     public static long minutesToSeconds(String str) {
-        final long secondsInMinute = 60L;
+
         String[] parts = str.split(":");
 
         if (parts.length != 2) {
@@ -16,11 +18,11 @@ public class Task1 {
             long minutes = Long.parseLong(parts[0]);
             long seconds = Long.parseLong(parts[1]);
 
-            if ((seconds >= secondsInMinute) || (seconds < 0) || (minutes < 0)) {
+            if ((seconds >= SECONDS_IN_MINUTE) || (seconds < 0) || (minutes < 0)) {
                 return -1;
             }
 
-            long res = Math.multiplyExact(minutes, secondsInMinute);
+            long res = Math.multiplyExact(minutes, SECONDS_IN_MINUTE);
             res = Math.addExact(res, seconds);
 
             return res;
