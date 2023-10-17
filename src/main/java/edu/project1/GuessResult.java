@@ -3,97 +3,75 @@ package edu.project1;
 sealed interface GuessResult {
     boolean toFinish();
 
-    int attempt();
+    String massage();
 
-    int maxAttempts();
-
-    void massage();
-
-    record Defeat(int attempt, int maxAttempts, String hiddenWord) implements GuessResult {
+    record Quit() implements GuessResult {
         @Override public boolean toFinish() {
             return true;
         }
 
-        @Override public void massage() {
-            System.out.print(
-                "> Missed, mistake " + attempt + " out of " + maxAttempts + ".\n"
-                    + ">\n"
-                    + "> The word: " + hiddenWord + "\n"
-                    + ">\n"
-                    + "> You lost!\n");
+        @Override public String massage() {
+            return "Bye-bye!";
         }
     }
 
-    record Win(int attempt, int maxAttempts, String hiddenWord) implements GuessResult {
+    record Defeat() implements GuessResult {
         @Override public boolean toFinish() {
             return true;
         }
 
-        @Override public void massage() {
-            System.out.print(
-                "> Hit!"
-                    + ">\n"
-                    + "> The word: " + hiddenWord + "\n"
-                    + ">\n"
-                    + "> You won!\n");
+        @Override public String massage() {
+            return "Missed. That was your last attempt. You lost!";
         }
     }
 
-    record SuccessfulGuess(int attempt, int maxAttempts, String hiddenWord) implements GuessResult {
+    record Win() implements GuessResult {
+        @Override public boolean toFinish() {
+            return true;
+        }
+
+        @Override public String massage() {
+            return "Hit! You won!";
+        }
+    }
+
+    record SuccessfulGuess() implements GuessResult {
         @Override public boolean toFinish() {
             return false;
         }
 
-        @Override public void massage() {
-            System.out.print(
-                "> Hit!\n"
-                    + ">\n"
-                    + "> The word: " + hiddenWord + "\n"
-                    + ">\n");
+        @Override public String massage() {
+            return "Hit!";
         }
     }
 
-    record FailedGuess(int attempt, int maxAttempts, String hiddenWord) implements GuessResult {
+    record FailedGuess() implements GuessResult {
         @Override public boolean toFinish() {
             return false;
         }
 
-        @Override public void massage() {
-            System.out.print(
-                "> Missed, mistake " + attempt + " out of " + maxAttempts + ".\n"
-                    + ">\n"
-                    + "> The word: " + hiddenWord + "\n"
-                    + ">\n");
+        @Override public String massage() {
+            return "Missed.";
         }
     }
 
-    record IncorrectInput(int attempt, int maxAttempts, String hiddenWord) implements GuessResult {
+    record IncorrectInput() implements GuessResult {
         @Override public boolean toFinish() {
             return false;
         }
 
-        @Override public void massage() {
-            System.out.print(
-                "> Incorrect input, please try again.\n"
-                    + "> Mistake " + attempt + " out of " + maxAttempts + ".\n"
-                    + ">\n"
-                    + "> The word: " + hiddenWord + "\n"
-                    + ">\n");
+        @Override public String massage() {
+            return "Incorrect input, please try again.";
         }
     }
 
-    record UsedLetter(int attempt, int maxAttempts, String hiddenWord) implements GuessResult {
+    record UsedLetter() implements GuessResult {
         @Override public boolean toFinish() {
             return false;
         }
 
-        @Override public void massage() {
-            System.out.print(
-                "> This letter has already been used, please try again.\n"
-                    + "> Mistake " + attempt + " out of " + maxAttempts + ".\n"
-                    + ">\n"
-                    + "> The word: " + hiddenWord + "\n"
-                    + ">\n");
+        @Override public String massage() {
+            return "This letter has already been used, please try again.";
         }
     }
 }
