@@ -1,27 +1,40 @@
 package edu.hw1;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
 public final class Main {
-    private final static Logger LOGGER = LogManager.getLogger();
 
     private Main() {
     }
 
+    @SuppressWarnings({"MagicNumber", "RegexpSinglelineJava"})
     public static void main(String[] args) {
-        // Press Alt+Enter with your caret at the highlighted text to see how
-        // IntelliJ IDEA suggests fixing it.
-        LOGGER.info("Hello and welcome!");
+        Task0.printHelloWorld();
 
-        // Press Shift+F10 or click the green arrow button in the gutter to run the code.
-        for (int i = 0; i <= 2; i++) {
+        System.out.println(Task1.minutesToSeconds(Long.MIN_VALUE / 60 + ":00"));
 
-            // Press Shift+F9 to start debugging your code. We have set one breakpoint
-            // for you, but you can always add more by pressing Ctrl+F8.
-            LOGGER.info("i = {}", i);
-        }
+        System.out.println(Task2.countDigits(Long.MIN_VALUE));
+
+        System.out.println(Task3.isNestable(new int[] {1, 2, 3, 4}, new int[] {2, 3}));
+
+        System.out.println(Task4.fixString("badce"));
+
+        System.out.println(Task5.isPalindromeDescendant(1224));
+
+        System.out.println(Task6.countK(1234));
+
+        System.out.println(Task7.rotateRight(5, 2));
+
+        int[][] mas =
+            {
+                {0, 1, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {1, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0}
+            };
+        System.out.println(Task8.knightBoardCapture(mas));
     }
+
 }
