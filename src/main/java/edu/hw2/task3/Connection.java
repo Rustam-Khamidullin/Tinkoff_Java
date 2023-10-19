@@ -15,13 +15,17 @@ public sealed interface Connection extends AutoCloseable {
     }
 
     final class FaultyConnection implements Connection {
+        private static final double CONNECTION_EXCEPTION_PROBABILITY = 1;
+
         @Override
         public void close() {
         }
 
         @Override
         public void execute(String command) {
-
+            if (Math.random() < CONNECTION_EXCEPTION_PROBABILITY) {
+                throw new ConnectionException("Some trouble.");
+            }
         }
     }
 }

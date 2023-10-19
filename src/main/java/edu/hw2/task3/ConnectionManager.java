@@ -4,7 +4,7 @@ public sealed interface ConnectionManager {
     Connection getConnection();
 
     final class DefaultConnectionManager implements ConnectionManager {
-        private static final double FAULTY_CONNECTION_PROBABILITY = 0.5;
+        private static final double FAULTY_CONNECTION_PROBABILITY = 0;
 
         @Override
         public Connection getConnection() {
@@ -16,7 +16,7 @@ public sealed interface ConnectionManager {
         }
     }
 
-    final class FualtyConnectionManager implements ConnectionManager {
+    final class FaultyConnectionManager implements ConnectionManager {
 
         @Override
         public Connection getConnection() {

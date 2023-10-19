@@ -13,25 +13,25 @@ public final class PopularCommandExecutor {
         tryExecute("apt update && apt upgrade -y");
     }
 
-    void tryExecute(String command) {
-        Connection connection = manager.getConnection();
-
-        try (connection) {
+    private void tryExecute(String command) {
+        try (Connection connection = manager.getConnection()) {
             for (int i = 0; i < maxAttempts; i++) {
                 try {
                     connection.execute(command);
                     return;
                 } catch (ConnectionException e) {
                     if (i == maxAttempts - 1) {
-                        throw new ConnectionException("Failed to execute command after " + maxAttempts + " attempts");
+                        throw new ConnectionException(
+                            "Failed to execute command after " + maxAttempts + " attempts", e);
                     }
                 }
             }
+        } catch (ConnectionException e) {
+            throw e;
         } catch (Exception e) {
             throw new RuntimeException("Failed to close connection");
         }
     }
-
 }
 
 
