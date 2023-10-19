@@ -8,8 +8,4 @@ public class ConnectionException extends RuntimeException {
     public ConnectionException(String massage) {
         super(massage);
     }
-
-    public ConnectionException() {
-        super();
-    }
 }
