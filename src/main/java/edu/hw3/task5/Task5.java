@@ -1,4 +1,4 @@
-package edu.hw3;
+package edu.hw3.task5;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -7,28 +7,26 @@ import java.util.List;
 
 public class Task5 {
     private static final String CONTACT_RE = "^[A-Za-z\\-]+( [A-Za-z\\-]+)?$";
-    private static final Comparator<String> COMPARE_CONTACTS = (o1, o2) -> {
-        String[] s1 = o1.split(" ");
-        String[] s2 = o2.split(" ");
-
-        return s1[s1.length - 1].compareTo(s2[s2.length - 1]);
-    };
+    private static final Comparator<Contact> COMPARE_CONTACTS =
+        Comparator.comparing(o -> (o.getLastName() + o.getFirstName()));
 
     private Task5() {
     }
 
-    public static List<String> parseContacts(List<String> contacts, String order) {
+    public static List<Contact> parseContacts(List<String> contacts, String order) {
         if (contacts == null) {
             return null;
         }
 
+        ArrayList<Contact> result = new ArrayList<>();
+
         for (var contact : contacts) {
             if (!contact.matches(CONTACT_RE)) {
                 throw new RuntimeException("Incorrect contact");
+            } else {
+                result.add(new Contact(contact));
             }
         }
-
-        ArrayList<String> result = new ArrayList<>(contacts);
 
         if (order.equals("ASC")) {
             result.sort(COMPARE_CONTACTS);

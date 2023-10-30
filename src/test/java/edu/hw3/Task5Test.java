@@ -1,7 +1,10 @@
 package edu.hw3;
 
+import edu.hw3.task5.Contact;
+import edu.hw3.task5.Task5;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import java.util.ArrayList;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -11,7 +14,11 @@ public class Task5Test {
     @DisplayName("Sort contacts in ascending order")
     public void testParseContactsAscending() {
         List<String> input = List.of("John Locke", "Thomas Aquinas", "David Hume", "Rene Descartes");
-        List<String> expected = List.of("Thomas Aquinas", "Rene Descartes", "David Hume", "John Locke");
+        List<Contact> expected = new ArrayList<>();
+        expected.add(new Contact("Thomas Aquinas"));
+        expected.add(new Contact("Rene Descartes"));
+        expected.add(new Contact("David Hume"));
+        expected.add(new Contact("John Locke"));
         assertIterableEquals(expected, Task5.parseContacts(input, "ASC"));
     }
 
@@ -19,7 +26,10 @@ public class Task5Test {
     @DisplayName("Sort contacts in descending order")
     public void testParseContactsDescending() {
         List<String> input = List.of("Paul Erdos", "Leonhard Euler", "Carl Gauss");
-        List<String> expected = List.of("Carl Gauss", "Leonhard Euler", "Paul Erdos");
+        List<Contact> expected = new ArrayList<>();
+        expected.add(new Contact("Carl Gauss"));
+        expected.add(new Contact("Leonhard Euler"));
+        expected.add(new Contact("Paul Erdos"));
         assertIterableEquals(expected, Task5.parseContacts(input, "DESC"));
     }
 
@@ -27,7 +37,10 @@ public class Task5Test {
     @DisplayName("Sort contacts without surname")
     public void testParseContactsWithoutSurname() {
         List<String> input = List.of("Paul F", "A", "Carl Gauss");
-        List<String> expected = List.of("A", "Paul F", "Carl Gauss");
+        List<Contact> expected = new ArrayList<>();
+        expected.add(new Contact("A"));
+        expected.add(new Contact("Paul F"));
+        expected.add(new Contact("Carl Gauss"));
         assertIterableEquals(expected, Task5.parseContacts(input, "ASC"));
     }
 
