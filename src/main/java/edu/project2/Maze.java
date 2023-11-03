@@ -18,6 +18,19 @@ public class Maze {
         maze = new Cell[height][weight];
     }
 
+    public void prettyPrint() {
+        for (var i : maze) {
+            for (var j : i) {
+                if (j == Cell.PASSAGE) {
+                    System.out.print(" ");
+                } else {
+                    System.out.print("#");
+                }
+                System.out.println();
+            }
+        }
+    }
+
     public int getHeight() {
         return height;
     }
