@@ -1,5 +1,5 @@
 package edu.project2;
 
 public enum Cell {
-    WALL, PASSAGE
+    WALL, PASSAGE, PATH, START_END
 }
