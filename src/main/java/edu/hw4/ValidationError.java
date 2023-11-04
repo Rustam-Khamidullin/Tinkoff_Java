@@ -1,0 +1,6 @@
+package edu.hw4;
+
+public enum ValidationError {
+    INVALID_NAME, INVALID_SEX, INVALID_TYPE, INVALID_AGE, INVALID_HEIGHT, INVALID_WEIGHT
+}
+
