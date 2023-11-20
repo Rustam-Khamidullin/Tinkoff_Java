@@ -2,6 +2,7 @@ package edu.project3;
 
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -48,7 +49,8 @@ public class LogParser {
                 httpReferer,
                 httpUserAgent
             );
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException
+                 | DateTimeParseException e) {
             return null;
         }
     }
