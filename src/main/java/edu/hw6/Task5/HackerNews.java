@@ -1,9 +1,11 @@
 package edu.hw6.Task5;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -18,24 +20,12 @@ public class HackerNews {
     private HackerNews() {
     }
 
-    @SuppressWarnings({"RegexpSinglelineJava", "UncommentedMain"})
-    public static void main(String[] args) {
-        for (var i : hackerNewsTopStories()) {
-            System.out.println(i + " : " + news(i));
-        }
-    }
-
     public static long[] hackerNewsTopStories() {
         try {
-            HttpClient client = HttpClient.newHttpClient();
-            HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(TOP_STORIES_URL))
-                .build();
+            String response = sendHttpRequest(TOP_STORIES_URL);
 
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-            if (response.statusCode() == SUCCESSFUL_RESPONSE) {
-                String[] idStrings = response.body().replaceAll("[\\[\\]\"]", "").split(",");
+            if (response != null) {
+                String[] idStrings = response.replaceAll("[\\[\\]\"]", "").split(",");
 
                 long[] ids = new long[idStrings.length];
 
@@ -54,15 +44,10 @@ public class HackerNews {
 
     public static String news(long id) {
         try {
-            HttpClient client = HttpClient.newHttpClient();
-            HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(String.format(ITEM_URL_TEMPLATE, id)))
-                .build();
+            String response = sendHttpRequest(String.format(ITEM_URL_TEMPLATE, id));
 
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-            if (response.statusCode() == SUCCESSFUL_RESPONSE) {
-                String jsonBody = response.body().replaceAll("\\\\\"", "'");
+            if (response != null) {
+                String jsonBody = response.replaceAll("\\\\\"", "'");
                 Pattern titlePattern = Pattern.compile("\"title\"\\s*:\\s*\"([^\"]*)\"");
                 Matcher matcher = titlePattern.matcher(jsonBody);
 
@@ -72,6 +57,21 @@ public class HackerNews {
             }
         } catch (Exception e) {
             LOGGER.log(Level.WARNING, "Failed to get news " + id + ":", e);
+        }
+
+        return null;
+    }
+
+    private static String sendHttpRequest(String url) throws IOException, InterruptedException {
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+            .uri(URI.create(url))
+            .build();
+
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+        if (response.statusCode() == SUCCESSFUL_RESPONSE) {
+            return response.body();
         }
 
         return null;

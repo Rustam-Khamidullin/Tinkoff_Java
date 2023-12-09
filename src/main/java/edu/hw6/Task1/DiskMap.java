@@ -15,7 +15,7 @@ import org.jetbrains.annotations.Nullable;
 public class DiskMap implements Map<String, String> {
     private final Map<String, String> memoryMap;
 
-    private String file;
+    private final String file;
 
     private boolean immediatelySave;
 
@@ -144,9 +144,5 @@ public class DiskMap implements Map<String, String> {
 
     public String getFile() {
         return file;
-    }
-
-    public void setFile(String file) {
-        this.file = file;
     }
 }
