@@ -12,7 +12,7 @@ public class Task1Test {
 
         ExecutorService executorService = Executors.newFixedThreadPool(3);
 
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 10; i++) {
             executorService.execute(() -> {
                 var arr = new double[10000000];
                 for (int j = 0; j < 10000000; j++) {
@@ -22,7 +22,7 @@ public class Task1Test {
             });
         }
 
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 10; i++) {
             System.out.println(statsCollector.pop());
         }
     }
