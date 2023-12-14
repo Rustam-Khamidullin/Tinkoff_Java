@@ -8,6 +8,9 @@ import java.util.concurrent.RecursiveTask;
 public class ParallelSolutionMaze {
     private static final String FAILED_SOLUTION = "Failed to solve maze.";
 
+    private ParallelSolutionMaze() {
+    }
+
     public static void solveParallelDFS(Maze maze) {
         Boolean[][] visited = new Boolean[maze.getHeight()][maze.getWeight()];
         for (int i = 0; i < maze.getHeight(); i++) {
@@ -33,7 +36,7 @@ public class ParallelSolutionMaze {
         private final Maze maze;
         private final Boolean[][] visited;
 
-        public ParallelDFSTask(Coordinate start, Coordinate end, Maze maze, Boolean[][] visited) {
+        ParallelDFSTask(Coordinate start, Coordinate end, Maze maze, Boolean[][] visited) {
             this.start = start;
             this.end = end;
             this.maze = maze;

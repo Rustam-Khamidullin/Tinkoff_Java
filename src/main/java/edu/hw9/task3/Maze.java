@@ -93,14 +93,4 @@ public class Maze {
     public boolean invalidCoordinate(Coordinate coordinate) {
         return coordinate.x() < 0 || coordinate.x() >= height || coordinate.y() < 0 || coordinate.y() >= width;
     }
-
-    public static void main(String[] args) {
-        var maze = GenerateMaze.mazeKruskal(20, 20);
-
-        //maze.prettyPrint();
-
-        SolutionMaze.solveDFS(maze);
-
-        maze.prettyPrint();
-    }
 }
