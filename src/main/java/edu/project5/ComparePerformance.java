@@ -26,6 +26,7 @@ public class ComparePerformance {
     private MethodHandle methodHandle;
     private StudentInterface lambda;
 
+    @SuppressWarnings({"MagicNumber", "UncommentedMain"})
     public static void main(String[] args) throws RunnerException {
         Options options = new OptionsBuilder()
             .include(ComparePerformance.class.getSimpleName())
