@@ -20,7 +20,7 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
 import org.openjdk.jmh.runner.options.TimeValue;
 
 @State(Scope.Thread)
-public class ComparePerformance {
+public class FastReflection {
     private Student student;
     private Method method;
     private MethodHandle methodHandle;
@@ -29,7 +29,7 @@ public class ComparePerformance {
     @SuppressWarnings({"MagicNumber", "UncommentedMain"})
     public static void main(String[] args) throws RunnerException {
         Options options = new OptionsBuilder()
-            .include(ComparePerformance.class.getSimpleName())
+            .include(FastReflection.class.getSimpleName())
             .shouldFailOnError(true)
             .shouldDoGC(true)
             .mode(Mode.AverageTime)
