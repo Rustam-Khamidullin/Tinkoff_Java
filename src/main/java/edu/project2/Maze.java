@@ -23,21 +23,6 @@ public class Maze {
         this.field = field;
     }
 
-    @SuppressWarnings("RegexpSinglelineJava")
-    public void prettyPrint() {
-        for (var i : field) {
-            for (var j : i) {
-                switch (j) {
-                    case WALL -> System.out.print("▦");
-                    case PASSAGE -> System.out.print("▢");
-                    case PATH -> System.out.print("\u001B[31m▢\u001B[0m");
-                    default -> System.out.print("\u001B[32m▢\u001B[0m");
-                }
-            }
-            System.out.println();
-        }
-    }
-
     public int getHeight() {
         return height;
     }

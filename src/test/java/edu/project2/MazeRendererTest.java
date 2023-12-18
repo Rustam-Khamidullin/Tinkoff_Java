@@ -5,12 +5,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class GenerateMazeTest {
+public class MazeRendererTest {
     @Test
     public void testGenerateMazeKruskal() {
         int height = 10;
         int width = 10;
-        Maze maze = GenerateMaze.mazeKruskal(height, width);
+        MazeRenderer mazeRenderer = new MazeRendererKruskal();
+        Maze maze = mazeRenderer.render(height, width);
         Cell[][] field = maze.getField();
 
         assertEquals(height, field.length);
@@ -31,7 +32,9 @@ public class GenerateMazeTest {
     public void testGenerateMazeBacktracking() {
         int height = 10;
         int width = 10;
-        Maze maze = GenerateMaze.mazeBacktracking(height, width);
+
+        MazeRenderer mazeRenderer = new MazeRendererBacktracking();
+        Maze maze = mazeRenderer.render(height, width);
         Cell[][] field = maze.getField();
 
         assertEquals(height, field.length);

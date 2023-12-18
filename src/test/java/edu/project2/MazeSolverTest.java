@@ -1,25 +1,30 @@
 package edu.project2;
 
+import java.util.List;
 import org.junit.jupiter.api.Test;
+import static edu.project2.MazeUtils.applySolution;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class SolutionMazeTest {
+public class MazeSolverTest {
     @Test
     public void testDFS() {
         int height = 100;
         int width = 100;
-        Maze maze1 = GenerateMaze.mazeKruskal(height, width);
+        MazeRenderer mazeRenderer = new MazeRendererKruskal();
+        MazeSolver mazeSolver = new MazeSolverDFS();
 
-        assertDoesNotThrow(() -> SolutionMaze.solveDFS(maze1));
+        Maze maze1 = mazeRenderer.render(height, width);
+
+        assertDoesNotThrow(() -> mazeSolver.solve(maze1));
 
         assertEquals(Cell.START_END, maze1.getCell(maze1.getStart()));
         assertEquals(Cell.START_END, maze1.getCell(maze1.getEnd()));
 
-        Maze maze2 = GenerateMaze.mazeBacktracking(height, width);
-        assertDoesNotThrow(() -> SolutionMaze.solveDFS(maze2));
+        Maze maze2 = mazeRenderer.render(height, width);
+        assertDoesNotThrow(() -> mazeSolver.solve(maze2));
 
         assertEquals(Cell.START_END, maze2.getCell(maze2.getStart()));
         assertEquals(Cell.START_END, maze2.getCell(maze2.getEnd()));
@@ -29,15 +34,17 @@ public class SolutionMazeTest {
     public void testBFS() {
         int height = 50;
         int width = 50;
-        Maze maze = GenerateMaze.mazeKruskal(height, width);
+        MazeRenderer mazeRenderer = new MazeRendererKruskal();
+        MazeSolver mazeSolver = new MazeSolverBFS();
+        Maze maze = mazeRenderer.render(height, width);
 
-        assertDoesNotThrow(() -> SolutionMaze.solveBFS(maze));
+        assertDoesNotThrow(() -> mazeSolver.solve(maze));
 
         assertEquals(Cell.START_END, maze.getCell(maze.getStart()));
         assertEquals(Cell.START_END, maze.getCell(maze.getEnd()));
 
-        Maze maze2 = GenerateMaze.mazeBacktracking(height, width);
-        assertDoesNotThrow(() -> SolutionMaze.solveBFS(maze2));
+        Maze maze2 = mazeRenderer.render(height, width);
+        assertDoesNotThrow(() -> mazeSolver.solve(maze2));
 
         assertEquals(Cell.START_END, maze2.getCell(maze2.getStart()));
         assertEquals(Cell.START_END, maze2.getCell(maze2.getEnd()));
@@ -47,38 +54,42 @@ public class SolutionMazeTest {
     public void testDFSException() {
         int height = 5;
         int width = 5;
-        Maze maze1 = GenerateMaze.mazeKruskal(height, width);
+        MazeRenderer mazeRenderer = new MazeRendererKruskal();
+        MazeSolver mazeSolver = new MazeSolverBFS();
+        Maze maze1 = mazeRenderer.render(height, width);
 
         maze1.setEnd(new Coordinate(0, 0));
         maze1.setStart(new Coordinate(4, 4));
 
-        assertThrows(RuntimeException.class, () -> SolutionMaze.solveDFS(maze1));
+        assertThrows(RuntimeException.class, () -> mazeSolver.solve(maze1));
 
-        Maze maze2 = GenerateMaze.mazeBacktracking(height, width);
+        Maze maze2 = mazeRenderer.render(height, width);
 
         maze2.setEnd(new Coordinate(0, 0));
         maze2.setStart(new Coordinate(4, 4));
 
-        assertThrows(RuntimeException.class, () -> SolutionMaze.solveDFS(maze2));
+        assertThrows(RuntimeException.class, () -> mazeSolver.solve(maze2));
     }
 
     @Test
     public void testBFSException() {
         int height = 50;
         int width = 50;
-        Maze maze = GenerateMaze.mazeKruskal(height, width);
+        MazeRenderer mazeRenderer = new MazeRendererKruskal();
+        MazeSolver mazeSolver = new MazeSolverBFS();
+        Maze maze = mazeRenderer.render(height, width);
 
         maze.setEnd(new Coordinate(0, 0));
         maze.setStart(new Coordinate(49, 49));
 
-        assertThrows(RuntimeException.class, () -> SolutionMaze.solveBFS(maze));
+        assertThrows(RuntimeException.class, () -> mazeSolver.solve(maze));
 
-        Maze maze2 = GenerateMaze.mazeBacktracking(height, width);
+        Maze maze2 = mazeRenderer.render(height, width);
 
         maze2.setEnd(new Coordinate(0, 0));
         maze2.setStart(new Coordinate(4, 4));
 
-        assertThrows(RuntimeException.class, () -> SolutionMaze.solveBFS(maze2));
+        assertThrows(RuntimeException.class, () -> mazeSolver.solve(maze2));
     }
 
     @Test
@@ -93,6 +104,7 @@ public class SolutionMazeTest {
             {Cell.WALL, Cell.WALL, Cell.WALL, Cell.START_END, Cell.WALL,},
         };
         Maze maze = new Maze(height, width, field, new Coordinate(0, 1), new Coordinate(4, 3));
+        MazeSolver mazeSolver = new MazeSolverDFS();
 
         Cell[][] expected = {
             {Cell.WALL, Cell.START_END, Cell.WALL, Cell.WALL, Cell.WALL,},
@@ -102,7 +114,8 @@ public class SolutionMazeTest {
             {Cell.WALL, Cell.WALL, Cell.WALL, Cell.START_END, Cell.WALL,},
         };
 
-        assertDoesNotThrow(() -> SolutionMaze.solveDFS(maze));
+        List<Coordinate> solution = mazeSolver.solve(maze);
+        applySolution(maze, solution);
 
         assertEquals(Cell.START_END, maze.getCell(maze.getStart()));
         assertEquals(Cell.START_END, maze.getCell(maze.getEnd()));
@@ -122,6 +135,7 @@ public class SolutionMazeTest {
             {Cell.WALL, Cell.WALL, Cell.WALL, Cell.START_END, Cell.WALL,},
         };
         Maze maze = new Maze(height, width, field, new Coordinate(0, 1), new Coordinate(4, 3));
+        MazeSolver mazeSolver = new MazeSolverBFS();
 
         Cell[][] expected = {
             {Cell.WALL, Cell.START_END, Cell.WALL, Cell.WALL, Cell.WALL,},
@@ -131,7 +145,8 @@ public class SolutionMazeTest {
             {Cell.WALL, Cell.WALL, Cell.WALL, Cell.START_END, Cell.WALL,},
         };
 
-        assertDoesNotThrow(() -> SolutionMaze.solveBFS(maze));
+        List<Coordinate> solution = mazeSolver.solve(maze);
+        applySolution(maze, solution);
 
         assertEquals(Cell.START_END, maze.getCell(maze.getStart()));
         assertEquals(Cell.START_END, maze.getCell(maze.getEnd()));
