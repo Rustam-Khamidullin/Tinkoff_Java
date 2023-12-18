@@ -40,10 +40,10 @@ public class CacheProxy implements InvocationHandler {
                 return cache.get(key);
             }
 
-            Object result;
+            Object result = loadFromDisk(key);
             boolean isPersist = cacheAnnotation.persist();
 
-            if (isPersist && (result = loadFromDisk(key)) != null) {
+            if (isPersist && result != null) {
                 return result;
             }
 
